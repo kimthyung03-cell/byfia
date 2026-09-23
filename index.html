@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#176b5b" />
+  <title>KASIRFIA - Kasir Sederhana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">KF</div>
+        <div>
+          <strong>KASIRFIA</strong>
+          <span>Kasir jadi mudah</span>
+        </div>
+      </div>
+      <nav class="nav-list" aria-label="Navigasi utama">
+        <button class="nav-item active" data-view="kasir"><span class="nav-icon">⌂</span>Kasir</button>
+        <button class="nav-item" data-view="produk"><span class="nav-icon">▦</span>Produk</button>
+        <button class="nav-item" data-view="keuangan"><span class="nav-icon">💰</span>Keuangan</button>
+        <button class="nav-item" data-view="profil"><span class="nav-icon"></span>Profil Usaha</button>
+        <button class="nav-item" data-view="riwayat"><span class="nav-icon">↺</span>Riwayat</button>
+      </nav>
+      <div class="sidebar-note">
+        <span class="status-dot"></span>
+        <div><b>Data tersimpan</b><small>Di perangkat ini</small></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Buka menu">☰</button>
+        <div>
+          <p class="eyebrow" id="pageEyebrow">TRANSAKSI BARU</p>
+          <h1 id="pageTitle">Kasir</h1>
+        </div>
+        <div class="topbar-date" id="todayLabel"></div>
+      </header>
+
+      <section class="view active" id="kasirView">
+        <div class="summary-strip">
+          <div class="welcome-copy"><span class="sun-icon">☀</span><div><b>Selamat datang di <span id="businessNameDisplay">KASIRFIA</span></b><small>Mulai catat transaksi hari ini.</small></div></div>
+          <div class="quick-stat"><span>Transaksi hari ini</span><strong id="todayTransactions">0</strong></div>
+          <div class="quick-stat"><span>Pendapatan hari ini</span><strong id="todayRevenue">Rp0</strong></div>
+        </div>
+        <div class="pos-layout">
+          <section class="catalog-panel panel">
+            <div class="section-heading"><div><h2>Daftar produk</h2><p>Pilih produk untuk ditambahkan</p></div><button class="text-button" data-view="produk">+ Kelola produk</button></div>
+            <div class="toolbar"><div class="search-box"><span>⌕</span><input id="productSearch" type="search" placeholder="Cari produk..." /></div><div class="category-tabs" id="categoryTabs"></div></div>
+            <div class="product-grid" id="productGrid"></div>
+          </section>
+          <aside class="cart-panel panel">
+            <div class="section-heading cart-heading"><div><h2>Pesanan</h2><p id="cartCount">0 item</p></div><button class="clear-button" id="clearCart">Hapus semua</button></div>
+            <div class="cart-items" id="cartItems"><div class="empty-state"><div class="empty-icon">🛒</div><b>Belum ada pesanan</b><span>Pilih produk di sebelah kiri</span></div></div>
+            <div class="checkout-box">
+              <div class="total-row"><span>Total pembayaran</span><strong id="cartTotal">Rp0</strong></div>
+              <label class="field-label" for="paymentAmount">Uang diterima</label>
+              <div class="payment-input"><span>Rp</span><input id="paymentAmount" type="number" inputmode="numeric" placeholder="0" min="0" /></div>
+              <div class="change-row"><span>Kembalian</span><strong id="changeAmount">Rp0</strong></div>
+              <button class="primary-button" id="completePayment">Selesaikan pembayaran <span>→</span></button>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="view" id="produkView">
+        <div class="page-intro"><div><p class="eyebrow">INVENTARIS</p><h2>Produk & menu</h2><p>Atur daftar produk yang tersedia di kasir.</p></div><button class="primary-button compact" id="addProductButton">+ Tambah produk</button></div>
+        <div class="panel product-table-panel"><div class="table-toolbar"><div class="search-box"><span>⌕</span><input id="manageSearch" type="search" placeholder="Cari produk..." /></div><span class="product-count" id="productCount"></span></div><div class="product-table-wrap"><table><thead><tr><th>Produk</th><th>Kategori</th><th>Harga</th><th>Stok</th><th></th></tr></thead><tbody id="productTableBody"></tbody></table></div></div>
+      </section>
+      <section class="view" id="keuanganView">
+        <div class="page-intro"><div><p class="eyebrow">CATATAN KEUANGAN</p><h2>Keuangan</h2><p>Catat pemasukan dan pengeluaran usaha.</p></div></div>
+        <div class="panel"><h3>Pemasukan</h3><input id="incomeDescription" type="text" placeholder="Contoh: Penjualan bubur"><input id="incomeAmount" type="text" placeholder="Jumlah"><button class="primary-button" id="addIncomeButton">+ Tambah pemasukan</button></div>
+        <div class="panel"><h3>Pengeluaran</h3><input id="expenseDescription" type="text" placeholder="Contoh: Beli bahan baku"><input id="expenseAmount" type="text" placeholder="Jumlah"><button class="primary-button" id="addExpenseButton">+ Tambah pengeluaran</button></div>
+        <div class="panel finance-summary">
+  <div class="history-summary">
+    <div>
+      <span>Total pemasukan</span>
+      <strong id="totalIncome">Rp0</strong>
+    </div>
+    <div>
+      <span>Total pengeluaran</span>
+      <strong id="totalExpense">Rp0</strong>
+    </div>
+    <div>
+      <span>Laba bersih</span>
+      <strong id="netProfit">Rp0</strong>
+    </div>
+  </div>
+</div>
+
+<div class="panel history-panel">
+  <div class="history-list" id="financeHistory"></div>
+</div>
+      </section>
+      <section class="view" id="profilView">
+  <div class="page-intro">
+    <div>
+      <p class="eyebrow">PROFIL USAHA</p>
+      <h2>Profil Usaha</h2>
+      <p>Atur nama dan foto usaha kamu.</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>Informasi Usaha</h3>
+
+    <label>Nama usaha</label>
+    <input id="businessName" type="text" placeholder="Contoh: Bubur Ayam Mas Fiq 45">
+
+    <label>Logo / foto usaha</label>
+    <input id="businessLogo" type="file" accept="image/*">
+
+    <div id="businessLogoPreview"></div>
+
+    <button class="primary-button" id="saveBusinessProfile">
+      Simpan Profil Usaha
+    </button>
+  </div>
+</section>
+      <section class="view" id="riwayatView">
+        <div class="page-intro"><div><p class="eyebrow">CATATAN PENJUALAN</p><h2>Riwayat transaksi</h2><p>Lihat semua transaksi yang sudah selesai.</p></div><button class="outline-button" id="clearHistory">Hapus riwayat</button></div>
+        <div class="panel history-panel"><div class="history-summary"><div><span>Total transaksi</span><strong id="historyCount">0</strong></div><div><span>Total pendapatan</span><strong id="historyRevenue">Rp0</strong></div></div><div class="history-list" id="historyList"></div></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="productModal"><div class="modal"><div class="modal-header"><div><p class="eyebrow">INVENTARIS</p><h2 id="modalTitle">Tambah produk</h2></div><button class="close-button" id="closeModal">×</button></div><form id="productForm"><input type="hidden" id="productId" /><label>Nama produk<input required id="productName" placeholder="Contoh: Es Teh Manis" /></label> <label>Foto produk
+  <input id="productImage" type="file" accept="image/*" />
+</label>
+<div id="productImagePreview"></div><label>Kategori<input required id="productCategory" placeholder="Contoh: Minuman" /></label><div class="form-row"><label>Harga<input required id="productPrice" type="number" min="0" placeholder="5000" /></label><label>Stok<input required id="productStock" type="number" min="0" placeholder="50" /></label></div><div class="modal-actions"><button type="button" class="outline-button" id="cancelModal">Batal</button><button class="primary-button" type="submit">Simpan produk</button></div></form></div></div>
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
